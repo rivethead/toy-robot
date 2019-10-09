@@ -3,6 +3,7 @@
               {description,"toy_robot"},
               {modules,['Elixir.ToyRobot',
                         'Elixir.ToyRobot.CommandInterpreter',
+                        'Elixir.ToyRobot.CommandRunner',
                         'Elixir.ToyRobot.Robot','Elixir.ToyRobot.Simulation',
                         'Elixir.ToyRobot.Table']},
               {registered,[]},
