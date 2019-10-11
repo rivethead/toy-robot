@@ -77,5 +77,6 @@ defmodule ToyRobot.CommandInterpreter do
   defp do_interpret("LEFT"), do: :turn_left
   defp do_interpret("RIGHT"), do: :turn_right
   defp do_interpret("REPORT"), do: :report
+  defp do_interpret("UTURN"), do: :uturn
   defp do_interpret(invalid), do: {:invalid, invalid}
 end

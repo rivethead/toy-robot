@@ -35,6 +35,11 @@ defmodule ToyRobot.CommandRunner do
     run(rest, simulation)
   end
 
+  def run([:uturn | rest], simulation) do
+    {:ok, simulation} = simulation |> Simulation.uturn
+    run(rest, simulation)
+  end
+
   def run([:report | rest], simulation) do
     %{east: east, north: north, facing: facing} = Simulation.report(simulation)
 

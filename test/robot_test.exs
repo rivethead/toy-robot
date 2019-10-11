@@ -20,6 +20,12 @@ defmodule ToyRobot.RobotTest do
       assert robot.north == 3
     end
 
+    test "it does uturn", %{robot: robot} do
+      robot = robot |> Robot.uturn
+
+      assert robot.facing == :south
+    end
+
     test "turns left to face west", %{robot: robot} do
       robot = robot |> Robot.turn_left
       assert robot.facing == :west
@@ -88,6 +94,12 @@ defmodule ToyRobot.RobotTest do
 
       assert robot.facing == :south
     end
+
+    test "it does uturn", %{robot: robot} do
+      robot = robot |> Robot.uturn
+
+      assert robot.facing == :west
+    end
   end
 
   describe "when the robot is facing east, and it has moved north once" do
@@ -126,7 +138,13 @@ defmodule ToyRobot.RobotTest do
 
       assert robot.facing == :west
     end
-  end
+
+    test "it does uturn", %{robot: robot} do
+      robot = robot |> Robot.uturn
+
+      assert robot.facing == :north
+    end
+end
 
   describe "when the robot is facing south, and it has moved east once" do
     setup do
@@ -163,6 +181,12 @@ defmodule ToyRobot.RobotTest do
       robot = robot |> Robot.turn_right
 
       assert robot.facing == :north
+    end
+
+    test "it does uturn", %{robot: robot} do
+      robot = robot |> Robot.uturn
+
+      assert robot.facing == :east
     end
   end
 

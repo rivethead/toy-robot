@@ -38,11 +38,10 @@ defmodule ToyRobot.CommandInterpreterTest do
     assert [{:place, %{east: 1, facing: :north, north: 2}}, {:move, 2}] == output
   end
 
-  test "test MOVE regular expression" do
-    format = ~r/\AMOVE (\d+)\z/
-    command = "MOVE 1"
+  test "handles UTURN comand" do
+    commands = ["PLACE 1,2,NORTH", "UTURN"]
 
-    [_command, number_of_spaces] = Regex.run(format, command)
-
+    output = commands |> CommandInterpreter.interpret()
+    assert [{:place, %{east: 1, facing: :north, north: 2}}, :uturn] == output
   end
 end

@@ -106,6 +106,25 @@ defmodule ToyRobot.Simulation do
   end
 
   @doc """
+  Turns the robot around
+
+  ## Examples
+  iex> alias ToyRobot.{Robot, Table, Simulation}
+  [ToyRobot.Robot, ToyRobot.Table, ToyRobot.Simulation]
+  iex> table = %Table{north_boundary: 4, east_boundary: 4}
+  %Table{north_boundary: 4, east_boundary: 4}
+  iex> simulation = %Simulation{table: table, robot: %Robot{north: 0, east: 0, facing: :north}}
+  iex> simulation |> Simulation.uturn
+  {:ok, %Simulation{
+  table: table,
+  robot: %Robot{north: 0, east: 0, facing: :south}
+  }}
+  """
+  def uturn(%Simulation{robot: robot, table: table} = simulation) do
+    {:ok, %{simulation | robot: robot |> Robot.uturn}}
+  end
+
+  @doc """
   Turns a robot left
 
   ## Examples
@@ -125,7 +144,7 @@ defmodule ToyRobot.Simulation do
   }}
   """
   def turn_left(%Simulation{robot: robot} = simulation) do
-    {:ok, %{simulation | robot: robot |> Robot.turn_left}}
+    {:ok, %{simulation | robot: robot |> Robot.turn_left()}}
   end
 
   @doc """
@@ -148,7 +167,7 @@ defmodule ToyRobot.Simulation do
   }}
   """
   def turn_right(%Simulation{robot: robot} = simulation) do
-    {:ok, %{simulation | robot: robot |> Robot.turn_right}}
+    {:ok, %{simulation | robot: robot |> Robot.turn_right()}}
   end
 
   @doc """
@@ -167,5 +186,4 @@ defmodule ToyRobot.Simulation do
   %Robot{north: 0, east: 0, facing: :north}
   """
   def report(%Simulation{robot: robot}), do: robot
-
 end
