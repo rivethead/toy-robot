@@ -20,7 +20,7 @@ defmodule ToyRobot.CommandRunnerTest do
   end
 
   test "ignores command until a valid placement" do
-    commands = [:move, {:place, %{east: 1, north: 2, facing: :north}}]
+    commands = [{:move, 1}, {:place, %{east: 1, north: 2, facing: :north}}]
     %Simulation{robot: robot} = commands |> CommandRunner.run()
 
     assert robot.east == 1
@@ -29,7 +29,7 @@ defmodule ToyRobot.CommandRunnerTest do
   end
 
   test "handles a place + move command" do
-    commands = [{:place, %{east: 1, north: 2, facing: :north}}, :move]
+    commands = [{:place, %{east: 1, north: 2, facing: :north}}, {:move, 1}]
     %Simulation{robot: robot} = commands |> CommandRunner.run()
 
     assert robot.east == 1
@@ -37,8 +37,17 @@ defmodule ToyRobot.CommandRunnerTest do
     assert robot.facing == :north
   end
 
+  test "handles a place + move command with number of spaces specified" do
+    commands = [{:place, %{east: 1, north: 2, facing: :north}}, {:move, 2}]
+    %Simulation{robot: robot} = commands |> CommandRunner.run()
+
+    assert robot.east == 1
+    assert robot.north == 4
+    assert robot.facing == :north
+  end
+
   test "handles a place + invalid move command" do
-    commands = [{:place, %{east: 1, north: 4, facing: :north}}, :move]
+    commands = [{:place, %{east: 1, north: 4, facing: :north}}, {:move, 1}]
     %Simulation{robot: robot} = commands |> CommandRunner.run()
 
     assert robot.east == 1
@@ -74,7 +83,6 @@ defmodule ToyRobot.CommandRunnerTest do
 
     assert output |> String.trim() == "The robot is at (1, 2) and is facing NORTH"
   end
-
 
   test "handle a place + invalid command" do
     commands = [{:place, %{east: 1, north: 2, facing: :north}}, {:invalid, "EXTERMINATE"}]

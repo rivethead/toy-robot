@@ -4,7 +4,7 @@ defmodule ToyRobot.Robot do
   defstruct north: 0, east: 0, facing: :north
 
   @doc """
-  Moves the robot forward one space in the direction it is facing
+  Moves the robot forward in the direction it is facing. The number of spaces to move is based on the value of `number_of_spaces`. The default value of `number_of_spaces` is 1
 
   ## Examples
     iex> alias ToyRobot.Robot
@@ -13,13 +13,15 @@ defmodule ToyRobot.Robot do
     %Robot{north: 0, east: 0, facing: :north}
     iex> robot |> Robot.move
     %Robot{north: 1, east: 0, facing: :north}
+    iex> robot |> Robot.move(3)
+    %Robot{north: 3, east: 0, facing: :north}
   """
-  def move(%Robot{facing: facing} = robot) do
+  def move(%Robot{facing: facing} = robot, number_of_spaces \\ 1) do
     case facing do
-      :north -> robot |> move_north
-      :south -> robot |> move_south
-      :east -> robot |> move_east
-      :west -> robot |> move_west
+      :north -> robot |> move_north(number_of_spaces)
+      :south -> robot |> move_south(number_of_spaces)
+      :east -> robot |> move_east(number_of_spaces)
+      :west -> robot |> move_west(number_of_spaces)
     end
   end
 
@@ -70,19 +72,19 @@ defmodule ToyRobot.Robot do
     %Robot{robot | facing: new_facing}
   end
 
-  defp move_east(%Robot{} = robot) do
-    %Robot{robot | east: robot.east + 1}
+  defp move_east(%Robot{} = robot, number_of_spaces) do
+    %Robot{robot | east: robot.east + number_of_spaces}
   end
 
-  defp move_west(%Robot{} = robot) do
-    %Robot{robot | east: robot.east - 1}
+  defp move_west(%Robot{} = robot, number_of_spaces) do
+    %Robot{robot | east: robot.east - number_of_spaces}
   end
 
-  defp move_north(%Robot{} = robot) do
-    %Robot{robot | north: robot.north + 1}
+  defp move_north(%Robot{} = robot, number_of_spaces) do
+    %Robot{robot | north: robot.north + number_of_spaces}
   end
 
-  defp move_south(%Robot{} = robot) do
-    %Robot{robot | north: robot.north - 1}
+  defp move_south(%Robot{} = robot, number_of_spaces) do
+    %Robot{robot | north: robot.north - number_of_spaces}
   end
 end

@@ -23,4 +23,26 @@ defmodule ToyRobot.CommandInterpreterTest do
       {:invalid, "MoVe"},
     ]
   end
+
+  test "handles MOVE comand with no number of spaces specified" do
+    commands = ["PLACE 1,2,NORTH", "MOVE"]
+
+    output = commands |> CommandInterpreter.interpret()
+    assert [{:place, %{east: 1, facing: :north, north: 2}}, {:move, 1}] == output
+  end
+
+  test "handles MOVE comand with number of spaces specified" do
+    commands = ["PLACE 1,2,NORTH", "MOVE 2"]
+
+    output = commands |> CommandInterpreter.interpret()
+    assert [{:place, %{east: 1, facing: :north, north: 2}}, {:move, 2}] == output
+  end
+
+  test "test MOVE regular expression" do
+    format = ~r/\AMOVE (\d+)\z/
+    command = "MOVE 1"
+
+    [_command, number_of_spaces] = Regex.run(format, command)
+
+  end
 end

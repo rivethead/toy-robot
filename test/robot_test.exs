@@ -14,6 +14,12 @@ defmodule ToyRobot.RobotTest do
       assert robot.north == 1
     end
 
+    test "it moves 3 space north", %{robot: robot} do
+      robot = robot |> Robot.move(3)
+
+      assert robot.north == 3
+    end
+
     test "turns left to face west", %{robot: robot} do
       robot = robot |> Robot.turn_left
       assert robot.facing == :west
