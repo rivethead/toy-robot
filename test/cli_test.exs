@@ -2,8 +2,6 @@ defmodule ToyRobot.CLITest do
   use ExUnit.Case
   import ExUnit.CaptureIO
 
-  alias ToyRobot.CLI
-
   test "provides usage instructions if no arguments specified" do
     output =
       capture_io(fn ->
